@@ -1,0 +1,42 @@
+# Starting from MS's dotnet image that has all the SDKs installed,
+# build and unit test the app
+FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build
+
+COPY . /
+
+
+COPY ./local-nuget-repo/ /local-nuget-repos/
+
+# Only for LOCAL Development
+RUN dotnet nuget add source /local-nuget-repo/ --name="Local"
+
+ARG NUGET_PASSWORD
+ENV NUGET_PASSWORD=${NUGET_PASSWORD}
+RUN dotnet nuget add source https://nuget.pkg.github.com/Beerhunt-Studios/index.json --name="Docker-Compose" --username "useless" --password ${NUGET_PASSWORD} --store-password-in-clear-text
+
+RUN dotnet restore UserService.sln
+
+# Build
+RUN dotnet build --configuration Release --no-restore UserService.sln
+
+# Create dotnet artifacts
+RUN dotnet publish --no-restore -c Release --output /app UserService.sln
+
+# Build the deployment container. Switch base images from 'sdk' to
+# 'runtime', and use Apline Linux, to reduce image size
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS runtime
+
+
+ENV \
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8
+
+RUN apk add --no-cache \
+    icu-data-full \
+    icu-libs
+
+# Set up the app to run
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT ["dotnet", "UserService.Api.dll"]

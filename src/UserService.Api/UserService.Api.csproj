@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <IsTestProject>false</IsTestProject>
+        <LangVersion>latestmajor</LangVersion>
+        <!--The next two lines are needed for Swagger XML generation-->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+        <Nullable>enable</Nullable>
+        <InvariantGlobalization>false</InvariantGlobalization>
+        <NuGetAuditMode>direct</NuGetAuditMode>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BaseChord.Api" Version="1.*" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Yaml" Version="2.0.0-preview2" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
+        <PackageReference Include="System.Text.Encodings.Web" Version="9.0.0" />
+        <PackageReference Include="YamlDotNet" Version="16.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UserService.Application\UserService.Application.csproj" />
+        <ProjectReference Include="..\UserService.Domain\UserService.Domain.csproj" />
+        <ProjectReference Include="..\UserService.Infrastructure\UserService.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Middleware\" />
+    </ItemGroup>
+
+</Project>
