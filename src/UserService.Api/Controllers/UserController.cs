@@ -28,7 +28,7 @@ public class UserController : BaseController
     }
 
     [Route("CreateUser")]
-    [HttpPatch]
+    [HttpPost]
     [Authorize]
     public async Task<ActionResult<bool>> CreateUser([FromBody] CreateUserCommand command)
     {
