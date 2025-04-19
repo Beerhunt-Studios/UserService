@@ -33,6 +33,6 @@ public class UserInformation : IEntity
 
     public UserInformation(User user)
     {
-        UserId = userId;
+        User = user;
     }
 }

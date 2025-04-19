@@ -30,24 +30,19 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
 
     public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        UserInformation userInformation = await _userInformationRepository.FindByExternalId(request.ExternalIdentifier!);
-
-        if (userInformation is not null)
+        User? user = await _userRepository.FindByExternalIdentifier(request.ExternalIdentifier!);
+        if (user is not null)
         {
             throw new ApplicationException("User already exists");
         }
 
-        var user = _userRepository.FindByExternalIdentifier(request.ExternalIdentifier!);
-        if (user is null)
-        {
-            throw new NotFoundException(typeof(User), Guid.Empty);
-        }
-
-        userInformation = new UserInformation(user.Id);
+        user = new User(request.ExternalIdentifier!);
+        UserInformation userInformation = new UserInformation(user);
 
         _mapper.Map(request, userInformation);
 
         var transaction = _dbTransactionFactory.CreateTransaction();
+        await _userRepository.AddAsync(user);
         await _userInformationRepository.AddAsync(userInformation);
         await transaction.CommitAsync(cancellationToken);
 
