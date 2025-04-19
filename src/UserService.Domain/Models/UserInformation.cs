@@ -26,7 +26,12 @@ public class UserInformation : IEntity
 
     public string Ort { get; private set; } = null!;
 
-    public UserInformation(int userId)
+    private UserInformation()
+    {
+
+    }
+
+    public UserInformation(User user)
     {
         UserId = userId;
     }
