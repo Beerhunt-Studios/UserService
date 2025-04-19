@@ -14,4 +14,14 @@ public class User : IPersistentEntity
     public string ExternalIdentifier { get; private set; } = null!;
 
     public void SetAsDeleted() => IsDeleted = true;
+
+    private User()
+    {
+
+    }
+
+    public User(string externalIdentifier)
+    {
+        ExternalIdentifier = externalIdentifier;
+    }
 }
