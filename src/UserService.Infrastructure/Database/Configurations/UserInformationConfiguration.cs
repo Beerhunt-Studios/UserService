@@ -32,7 +32,7 @@ public class UserInformationConfiguration : IEntityTypeConfiguration<UserInforma
             .HasMaxLength(254);
 
         builder
-            .Property(x => x.Lastname)
+            .Property(x => x.LastName)
             .HasMaxLength(254);
 
         builder

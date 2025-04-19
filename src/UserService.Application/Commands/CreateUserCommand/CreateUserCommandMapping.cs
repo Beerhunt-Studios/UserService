@@ -11,7 +11,7 @@ public class CreateUserCommandMapping : IMap<CreateUserCommand, UserInformation>
         mapping
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
             .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
-            .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.Lastname))
+            .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.Lastname))
             .ForMember(dest => dest.ArtistName, opt => opt.MapFrom(src => src.ArtistName))
             .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
             .ForMember(dest => dest.Ort, opt => opt.MapFrom(src => src.Ort))

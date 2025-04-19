@@ -16,7 +16,7 @@ public class UserInformation : IEntity
 
     public string FirstName { get; private set; } = null!;
 
-    public string Lastname { get; private set; } = null!;
+    public string LastName { get; private set; } = null!;
 
     public string ArtistName { get; private set; } = null!;
 
