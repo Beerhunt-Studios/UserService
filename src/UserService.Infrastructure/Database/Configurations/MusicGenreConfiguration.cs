@@ -21,6 +21,6 @@ public class MusicGenreConfiguration : IEntityTypeConfiguration<MusicGenre>
         builder
             .HasOne<MusicGenre>()
             .WithMany()
-            .HasForeignKey(x => x.Id);
+            .HasForeignKey(x => x.ParentId);
     }
 }
