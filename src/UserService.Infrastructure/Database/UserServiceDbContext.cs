@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
 using BaseChord.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ThreadSafe;
 
 namespace UserService.Infrastructure.Database;
 
-public class UserServiceDbContext : DbContext
+public class UserServiceDbContext : ThreadSafeDbContext
 {
     public const string Schema = "UserService";
 

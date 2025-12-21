@@ -41,7 +41,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
 
         _mapper.Map(request, userInformation);
 
-        var transaction = _dbTransactionFactory.CreateTransaction();
+        using IDbTransaction transaction = await _dbTransactionFactory.CreateTransaction();
         await _userRepository.AddAsync(user);
         await _userInformationRepository.AddAsync(userInformation);
         await transaction.CommitAsync(cancellationToken);

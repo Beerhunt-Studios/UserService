@@ -18,7 +18,7 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddInfrastructureServices<UserServiceDbContext>(configuration, typeof(UserServiceDbContext).Assembly, typeof(AssemblyDefinition).Assembly);
+        services.AddInfrastructureServices<UserServiceDbContext, EventbusDbContext>(configuration, UserServiceDbContext.Schema, typeof(UserServiceDbContext).Assembly, typeof(AssemblyDefinition).Assembly);
         services.AddRepositories();
 
         return services;
