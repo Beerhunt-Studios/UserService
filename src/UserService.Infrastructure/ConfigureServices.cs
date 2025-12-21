@@ -28,5 +28,6 @@ public static class ConfigureServices
     {
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IUserInformationRepository, UserInformationRepository>();
+        services.AddTransient<IMusicGenreRepository, MusicGenreRepository>();
     }
 }
