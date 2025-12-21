@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BaseChord.Domain" Version="1.*" />
+      <PackageReference Include="BaseChord.Domain" Version="2.*" />
     </ItemGroup>
 
 </Project>

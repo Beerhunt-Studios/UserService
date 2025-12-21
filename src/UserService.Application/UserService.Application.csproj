@@ -7,8 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BaseChord.Application" Version="1.*" />
+        <PackageReference Include="BaseChord.Application" Version="2.*" />
+        <PackageReference Include="BaseChord.Contracts" Version="2.*" />
         <PackageReference Include="FluentValidation" Version="11.11.0" />
+        <PackageReference Include="MassTransit.Abstractions" Version="8.3.7" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
     </ItemGroup>

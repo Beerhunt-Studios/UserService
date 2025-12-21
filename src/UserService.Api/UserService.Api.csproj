@@ -13,7 +13,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BaseChord.Api" Version="1.*" />
+        <PackageReference Include="BaseChord.Api" Version="2.*" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Yaml" Version="2.0.0-preview2" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
         <PackageReference Include="System.Text.Encodings.Web" Version="9.0.0" />
@@ -32,6 +32,12 @@
 
     <ItemGroup>
       <Folder Include="Middleware\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.json">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
