@@ -5,19 +5,20 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserService.Application.Commands.CreateUserCommand;
+using UserService.Application.Commands.UpdateUserCommand;
 using UserService.Application.Queries.HasUserQuery;
 
 namespace UserService.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
-public class UserController : BaseController
+public class ProfileController : BaseController
 {
-    public UserController(ISender sender) : base(sender)
+    public ProfileController(ISender sender) : base(sender)
     {
     }
 
-    [Route("HasUser")]
+    [Route("HasProfile")]
     [HttpGet]
     [Authorize]
     public async Task<ActionResult<bool>> HasUser()
@@ -27,10 +28,18 @@ public class UserController : BaseController
         return await Sender.Send(query);
     }
 
-    [Route("CreateUser")]
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<bool>> CreateUser([FromBody] CreateUserCommand command)
+    {
+        command.ExternalIdentifier = GetExternalIdentifier();
+
+        return await Sender.Send(command);
+    }
+
+    [HttpPatch]
+    [Authorize]
+    public async Task<ActionResult<bool>> UpdateUser([FromBody] UpdateUserCommand command)
     {
         command.ExternalIdentifier = GetExternalIdentifier();
 

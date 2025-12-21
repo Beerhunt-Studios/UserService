@@ -16,6 +16,8 @@ public class CreateUserCommandMapping : IMap<CreateUserCommand, UserInformation>
             .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
             .ForMember(dest => dest.Ort, opt => opt.MapFrom(src => src.Ort))
             .ForMember(dest => dest.UserId, opt => opt.Ignore())
+            .ForMember(dest => dest.User, opt => opt.Ignore())
+            .ForMember(dest => dest.Genre, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore());
     }
 }

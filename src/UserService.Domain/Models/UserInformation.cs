@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using BaseChord.Domain;
 using UserService.Domain.Enum;
+using UserService.Domain.Hilfstexte;
 
 namespace UserService.Domain.Models;
 
@@ -25,6 +26,8 @@ public class UserInformation : IEntity
     public DateOnly BirthDate { get; private set; }
 
     public string Ort { get; private set; } = null!;
+
+    public ICollection<MusicGenre> Genre { get; private set; } = [];
 
     private UserInformation()
     {

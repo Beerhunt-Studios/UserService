@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using UserService.Domain.Hilfstexte;
 using UserService.Domain.Models;
 
 namespace UserService.Infrastructure.Database.Configurations;
@@ -38,6 +39,10 @@ public class UserInformationConfiguration : IEntityTypeConfiguration<UserInforma
         builder
             .Property(x => x.Ort)
             .HasMaxLength(254);
+
+        builder
+            .HasMany(x => x.Genre)
+            .WithMany();
 
         builder
             .HasIndex(x => x.UserId)
