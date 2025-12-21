@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BaseChord.Application;
 using UserService.Application.Interfaces.Repositories;
 using Xunit;
 
@@ -9,7 +10,7 @@ public class MappingTest
     [Fact]
     public static void TestMapping()
     {
-        var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(AssemblyDefinition).Assembly));
+        var configuration = new MapperConfiguration(cfg => cfg.AddIMapConfiguration(typeof(AssemblyDefinition).Assembly));
 
         configuration.AssertConfigurationIsValid();
     }
