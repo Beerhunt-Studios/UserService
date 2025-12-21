@@ -2,31 +2,40 @@
 # build and unit test the app
 FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build
 
+# ENV Variables
+ARG SERVICE_NAME
+ENV SERVICE_NAME=${SERVICE_NAME}
+
+ARG NUGET_PASSWORD
+ENV NUGET_PASSWORD=${NUGET_PASSWORD}
+
+
 COPY . /
 
-
-COPY ./local-nuget-repo/ /local-nuget-repos/
-
 # Only for LOCAL Development
+COPY ./local-nuget-repo/ /local-nuget-repos/
 RUN dotnet nuget add source /local-nuget-repo/ --name="Local"
 
 ARG NUGET_PASSWORD
 ENV NUGET_PASSWORD=${NUGET_PASSWORD}
 RUN dotnet nuget add source https://nuget.pkg.github.com/Beerhunt-Studios/index.json --name="Docker-Compose" --username "useless" --password ${NUGET_PASSWORD} --store-password-in-clear-text
 
-RUN dotnet restore UserService.sln
+RUN dotnet restore $SERVICE_NAME.sln
 
 # Build
-RUN dotnet build --configuration Release --no-restore UserService.sln
+RUN dotnet build --configuration Release --no-restore $SERVICE_NAME.sln
 
 # Create dotnet artifacts
-RUN dotnet publish --no-restore -c Release --output /app UserService.sln
+RUN dotnet publish --no-restore -c Release --output /app $SERVICE_NAME.sln
 
 # Build the deployment container. Switch base images from 'sdk' to
 # 'runtime', and use Apline Linux, to reduce image size
 FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS runtime
 
 
+# ENV Variables
+ARG SERVICE_NAME
+ENV SERVICE_NAME=${SERVICE_NAME}
 ENV \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
     LC_ALL=en_US.UTF-8 \
@@ -39,4 +48,4 @@ RUN apk add --no-cache \
 # Set up the app to run
 WORKDIR /app
 COPY --from=build /app .
-ENTRYPOINT ["dotnet", "UserService.Api.dll"]
+ENTRYPOINT dotnet $SERVICE_NAME.Api.dll
