@@ -29,7 +29,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool>
 
         if (userInfo is null)
         {
-            throw new NotFoundException(typeof(UserInformation), Guid.Empty);
+            throw new NotFoundException(typeof(UserInformation), -1);
         }
 
         using IDbTransaction transaction = await _dbTransactionFactory.CreateTransaction();
